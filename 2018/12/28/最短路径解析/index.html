@@ -1,0 +1,450 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>最短路径解析 | GTUIF&#39;s BLOG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+
+    
+    <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta name="keywords" content="ACM算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最短路径解析">
+<meta property="og:url" content="https://gtuif.github.io/blog/2018/12/28/最短路径解析/index.html">
+<meta property="og:site_name" content="GTUIF&#39;s BLOG">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-28T03:35:13.314Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最短路径解析">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+
+    
+    <link rel="alternative" href="/atom.xml" title="GTUIF&#39;s BLOG" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/gtuif.github.io/img/images.jpeg">
+    
+    
+    <link rel="apple-touch-icon" href="/gtuif.github.io/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/gtuif.github.io/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/gtuif.github.io/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/gtuif.github.io/"><img src="/gtuif.github.io/img/1.jpg" alt="GTUIF&#39;s BLOG" title="GTUIF&#39;s BLOG"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/gtuif.github.io/" title="GTUIF&#39;s BLOG">GTUIF&#39;s BLOG</a></h1>
+				<h2 class="blog-motto">LHY</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/gtuif.github.io/">Home</a></li>
+					
+						<li><a href="/gtuif.github.io/archives">Archives</a></li>
+					
+						<li><a href="/gtuif.github.io/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search">
+						<input type="hidden" name="q" value="site:gtuif.github.io/blog">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/gtuif.github.io/2018/12/28/最短路径解析/" title="最短路径解析" itemprop="url">最短路径解析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/gtuif.github.io/about" title="" target="_blank" itemprop="author"></a>
+		
+  </p><p class="article-time">
+    <time datetime="2018-12-28T03:28:51.000Z" itemprop="datePublished"> Published 2018-12-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define max 200</span><br><span class="line">#define N 999999999</span><br><span class="line">using namespace std;</span><br><span class="line">int mapp[max][max];</span><br><span class="line">int vis[max],dis[max];</span><br><span class="line">int n,m,a,b,c;</span><br><span class="line">int min(int a,int b)</span><br><span class="line">&#123;</span><br><span class="line">	return a&lt;b?a:b;</span><br><span class="line">&#125;</span><br><span class="line">void dijkstra()</span><br><span class="line">&#123;</span><br><span class="line">	int tem,v;</span><br><span class="line">	memset(vis,0,sizeof(vis));</span><br><span class="line">	for(int i=1;i&lt;=n;i++)</span><br><span class="line">		dis[i]=mapp[1][i];</span><br><span class="line">	dis[1]=0;</span><br><span class="line">	vis[1]=1;</span><br><span class="line">	for(int i=1;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		tem=N;</span><br><span class="line">		for(int j=1;j&lt;=n;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(tem&gt;dis[j]&amp;&amp;!vis[j])</span><br><span class="line">			&#123;</span><br><span class="line">				tem=dis[j];</span><br><span class="line">				v=j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		vis[v]=1;</span><br><span class="line">		puts(&quot;本次找的最近点是:&quot;);</span><br><span class="line">        printf(&quot;%d\n&quot;,v);</span><br><span class="line">		int p[20];</span><br><span class="line">		int l = 0;</span><br><span class="line">		memset(p, 0, sizeof(p));</span><br><span class="line">		for(int k=1;k&lt;=n;k++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(!vis[k])</span><br><span class="line">                if(dis[k] &gt; dis[v] + mapp[v][k])</span><br><span class="line">                &#123;</span><br><span class="line">                    puts(&quot;更新后的距离&quot;);</span><br><span class="line">                    printf(&quot;%d\n&quot;, dis[v] + mapp[v][k]);</span><br><span class="line">                    dis[k]=dis[v]+mapp[v][k];</span><br><span class="line">                    p[l++] = k;</span><br><span class="line">                &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		puts(&quot;本次被更新的点有&quot;); </span><br><span class="line">		for(int i = 0; i &lt; l; i++)</span><br><span class="line">            printf(&quot;%d &quot;, p[i]);</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">		puts(&quot;更新后每个点到远点的距离是&quot; );</span><br><span class="line">		for(int k = 1; k &lt;=n; k++)//每次更新后源点（1号点）到其他点的距离</span><br><span class="line">			printf(&quot;%d &quot;, dis[k]);</span><br><span class="line">		cout&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	while(~scanf(&quot;%d %d&quot;,&amp;n,&amp;m)&amp;&amp;(n||m))</span><br><span class="line">	&#123;</span><br><span class="line">		for(int i=1;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			for(int j=1;j&lt;=n;j++)</span><br><span class="line">			&#123;</span><br><span class="line">				mapp[i][j]=N;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		while(m--)</span><br><span class="line">		&#123;</span><br><span class="line">			scanf(&quot;%d %d %d&quot;,&amp;a,&amp;b,&amp;c);</span><br><span class="line">			if(mapp[a][b]&gt;c) mapp[a][b]=mapp[b][a]=c;</span><br><span class="line">		&#125;</span><br><span class="line">		dijkstra();</span><br><span class="line">		printf(&quot;%d\n&quot;,dis[n]);</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">	最短路算法：</span><br><span class="line">	思想：</span><br><span class="line">		简单贪心，根据当前点选择出距离当前点最近的邻接点，选出后更新每个点到原点的距离，经过n次选择后确定出源点到终点的最短路径</span><br><span class="line">	步骤：</span><br><span class="line">		1.建图 用邻接矩阵mapp数组用来储存信息 </span><br><span class="line">			1.1 初始化 输入点的个数(n)和图的边数(m),由于没有输入边的权值，所以初始每个点的距离都是INF(无穷大,上述代码中我设为了N)</span><br><span class="line">				代码行 65-71 </span><br><span class="line">			1.2 输入边的权值，如果是 无向图，两个边都要建</span><br><span class="line">				代码行 72 - 76</span><br><span class="line">		2.dij算法函数</span><br><span class="line">		 	2.1 所用的变量或数组说明</span><br><span class="line">			 	&#123;</span><br><span class="line">			 		vis数组 负责标记该点是否被选过 0表示为被选中过，1表示被选中过 </span><br><span class="line">					dis数组 负责记录每个点到原点的距离</span><br><span class="line">					v 保存被选中的最近点 </span><br><span class="line">					tem 通过tem和每个点到原点的距离比较，确定最近点，也就是v </span><br><span class="line">				&#125;</span><br><span class="line">			2.2 步骤</span><br><span class="line">				2.2.1 初始化  </span><br><span class="line">					代码行：18 - 22</span><br><span class="line">					该段代码执行的功能就是定义上述变量，将vis数组设为0(因为最开始除原点外所有的点都未被标记)</span><br><span class="line">					然后将原点设为已标记，原点到原点的距离是0</span><br><span class="line">				2.2.2 寻找最近点</span><br><span class="line">					代码行：23 - 34</span><br><span class="line">					23 ：通过原理得知，比较n次</span><br><span class="line">					26 - 33 找出最近点</span><br><span class="line">						28行，如果当前点j到原点的距离比tem小并且这个点并未被访问过，就记录下他到原点的距离，并用v记录这个点</span><br><span class="line">					34：经过n个点的比较后，v保存了最近点的值，那么就把这个点标记下来，这么做的原因是避免重复选择</span><br><span class="line">				2.2.3 更新每个点到原点的距离</span><br><span class="line">					代码行 40 - 50</span><br><span class="line">					42,43：如果这个点k没被访问过，并且他原来到原点的距离比通过走最近点v再到原点的距离小，那么这个点k到原点的距离dis[k]就是</span><br><span class="line">					dis[v](最近点到原点的距离)+mapp[v][k](最近点v到k的距离）</span><br><span class="line">					</span><br><span class="line">					</span><br><span class="line">	</span><br><span class="line">			经过n次更新后，每个点到原点的最短距离就都保存在了dis数组中 </span><br><span class="line">						</span><br><span class="line">					</span><br><span class="line">					 </span><br><span class="line">ps:建议学习算法的时候，想几个样例，用脑子运行代码，或者用手写，熟悉过程和变量的用法，这样就是自己的东西，不用抄代码了。 </span><br><span class="line">					 				</span><br><span class="line">样例，可以自己画出图，在纸上按步骤写，然后和本地运行对比，				 </span><br><span class="line">/*</span><br><span class="line">6 9</span><br><span class="line">1 2 5</span><br><span class="line">2 3 4</span><br><span class="line">3 5 7</span><br><span class="line">4 5 7</span><br><span class="line">1 5 4</span><br><span class="line">1 3 5</span><br><span class="line">4 6 8</span><br><span class="line">5 6 2</span><br><span class="line">1 4 9 </span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/gtuif.github.io/tags/ACM算法/">ACM算法</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://gtuif.github.io/blog/2018/12/28/最短路径解析/" data-title="最短路径解析 | GTUIF&#39;s BLOG" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/gtuif.github.io/2018/12/12/我的ACM回忆录/我的ACM回忆录/" title="我的ACM回忆录">
+ <strong>下一篇：</strong><br> 
+ <span>我的ACM回忆录
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="gtuif" data-theme="medium"></div>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+</div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/gtuif.github.io/tags/ACM算法/" title="ACM算法">ACM算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/gtuif.github.io/tags/我的青春/" title="我的青春">我的青春<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://me.csdn.net/gtuif" target="_blank" title="Blog in CSDN">Blog in CSDN</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="270" height="86" src="//music.163.com/outchain/player?type=2&id=1313107065&auto=0&height=66"></iframe>
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Ray in HPU. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		<a href="https://github.com/gtuif" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/li-hao-yang-57-15" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="https://gtuif.github.io/blog" title="GTUIF&#39;s BLOG">GTUIF&#39;s BLOG</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/gtuif.github.io/js/jquery-2.0.3.min.js"></script>
+<script src="/gtuif.github.io/js/jquery.imagesloaded.min.js"></script>
+<script src="/gtuif.github.io/js/gallery.js"></script>
+<script src="/gtuif.github.io/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/gtuif.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/gtuif.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1275638421'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s5.cnzz.com/z_stat.php%3Fid%3D1275638421%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/gtuif.github.io/img/scrollup.png"></a>
+	</div>
+	<script src="/gtuif.github.io/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
