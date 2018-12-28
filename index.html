@@ -75,83 +75,230 @@
     <div id="container">
       <div id="main">
 
-  
-<section class="post" itemscope="" itemprop="blogitem">
-  
-    <a href="/gtuif.github.io/2018/12/28/最短路径解析/" title="最短路径解析" itemprop="url">
-  
-    <h1 itemprop="name">最短路径解析</h1>
+   
     
-     
-           <p itemprop="description">12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747</p>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/gtuif.github.io/2018/12/28/最短路径解析/" title="最短路径解析" itemprop="url">最短路径解析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/gtuif.github.io/about" title="" target="_blank" itemprop="author"></a>
+		
+  </p><p class="article-time">
+    <time datetime="2018-12-28T03:28:51.000Z" itemprop="datePublished"> Published 2018-12-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
         
-    
-    <time datetime="2018-12-28T03:28:51.000Z" itemprop="datePublished">2018-12-28</time>
-  </a>
-</section>
+        <p>最短路算法之dij </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define max 200</span><br><span class="line">#define N 999999999</span><br><span class="line">using namespace std;</span><br><span class="line">int mapp[max][max];</span><br><span class="line">int vis[max],dis[max];</span><br><span class="line">int n,m,a,b,c;</span><br><span class="line">int min(int a,int b)</span><br><span class="line">&#123;</span><br><span class="line">	return a&lt;b?a:b;</span><br><span class="line">&#125;</span><br><span class="line">void dijkstra()</span><br><span class="line">&#123;</span><br><span class="line">	int tem,v;</span><br><span class="line">	memset(vis,0,sizeof(vis));</span><br><span class="line">	for(int i=1;i&lt;=n;i++)</span><br><span class="line">		dis[i]=mapp[1][i];</span><br><span class="line">	dis[1]=0;</span><br><span class="line">	vis[1]=1;</span><br><span class="line">	for(int i=1;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		tem=N;</span><br><span class="line">		for(int j=1;j&lt;=n;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(tem&gt;dis[j]&amp;&amp;!vis[j])</span><br><span class="line">			&#123;</span><br><span class="line">				tem=dis[j];</span><br><span class="line">				v=j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		vis[v]=1;</span><br><span class="line">		puts(&quot;本次找的最近点是:&quot;);</span><br><span class="line">        printf(&quot;%d\n&quot;,v);</span><br><span class="line">		int p[20];</span><br><span class="line">		int l = 0;</span><br><span class="line">		memset(p, 0, sizeof(p));</span><br><span class="line">		for(int k=1;k&lt;=n;k++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(!vis[k])</span><br><span class="line">                if(dis[k] &gt; dis[v] + mapp[v][k])</span><br><span class="line">                &#123;</span><br><span class="line">                    puts(&quot;更新后的距离&quot;);</span><br><span class="line">                    printf(&quot;%d\n&quot;, dis[v] + mapp[v][k]);</span><br><span class="line">                    dis[k]=dis[v]+mapp[v][k];</span><br><span class="line">                    p[l++] = k;</span><br><span class="line">                &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		puts(&quot;本次被更新的点有&quot;); </span><br><span class="line">		for(int i = 0; i &lt; l; i++)</span><br><span class="line">            printf(&quot;%d &quot;, p[i]);</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">		puts(&quot;更新后每个点到远点的距离是&quot; );</span><br><span class="line">		for(int k = 1; k &lt;=n; k++)//每次更新后源点（1号点）到其他点的距离</span><br><span class="line">			printf(&quot;%d &quot;, dis[k]);</span><br><span class="line">		cout&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	while(~scanf(&quot;%d %d&quot;,&amp;n,&amp;m)&amp;&amp;(n||m))</span><br><span class="line">	&#123;</span><br><span class="line">		for(int i=1;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			for(int j=1;j&lt;=n;j++)</span><br><span class="line">			&#123;</span><br><span class="line">				mapp[i][j]=N;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		while(m--)</span><br><span class="line">		&#123;</span><br><span class="line">			scanf(&quot;%d %d %d&quot;,&amp;a,&amp;b,&amp;c);</span><br><span class="line">			if(mapp[a][b]&gt;c) mapp[a][b]=mapp[b][a]=c;</span><br><span class="line">		&#125;</span><br><span class="line">		dijkstra();</span><br><span class="line">		printf(&quot;%d\n&quot;,dis[n]);</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">	最短路算法：</span><br><span class="line">	思想：</span><br><span class="line">		简单贪心，根据当前点选择出距离当前点最近的邻接点，选出后更新每个点到原点的距离，经过n次选择后确定出源点到终点的最短路径</span><br><span class="line">	步骤：</span><br><span class="line">		1.建图 用邻接矩阵mapp数组用来储存信息 </span><br><span class="line">			1.1 初始化 输入点的个数(n)和图的边数(m),由于没有输入边的权值，所以初始每个点的距离都是INF(无穷大,上述代码中我设为了N)</span><br><span class="line">				代码行 65-71 </span><br><span class="line">			1.2 输入边的权值，如果是 无向图，两个边都要建</span><br><span class="line">				代码行 72 - 76</span><br><span class="line">		2.dij算法函数</span><br><span class="line">		 	2.1 所用的变量或数组说明</span><br><span class="line">			 	&#123;</span><br><span class="line">			 		vis数组 负责标记该点是否被选过 0表示为被选中过，1表示被选中过 </span><br><span class="line">					dis数组 负责记录每个点到原点的距离</span><br><span class="line">					v 保存被选中的最近点 </span><br><span class="line">					tem 通过tem和每个点到原点的距离比较，确定最近点，也就是v </span><br><span class="line">				&#125;</span><br><span class="line">			2.2 步骤</span><br><span class="line">				2.2.1 初始化  </span><br><span class="line">					代码行：18 - 22</span><br><span class="line">					该段代码执行的功能就是定义上述变量，将vis数组设为0(因为最开始除原点外所有的点都未被标记)</span><br><span class="line">					然后将原点设为已标记，原点到原点的距离是0</span><br><span class="line">				2.2.2 寻找最近点</span><br><span class="line">					代码行：23 - 34</span><br><span class="line">					23 ：通过原理得知，比较n次</span><br><span class="line">					26 - 33 找出最近点</span><br><span class="line">						28行，如果当前点j到原点的距离比tem小并且这个点并未被访问过，就记录下他到原点的距离，并用v记录这个点</span><br><span class="line">					34：经过n个点的比较后，v保存了最近点的值，那么就把这个点标记下来，这么做的原因是避免重复选择</span><br><span class="line">				2.2.3 更新每个点到原点的距离</span><br><span class="line">					代码行 40 - 50</span><br><span class="line">					42,43：如果这个点k没被访问过，并且他原来到原点的距离比通过走最近点v再到原点的距离小，那么这个点k到原点的距离dis[k]就是</span><br><span class="line">					dis[v](最近点到原点的距离)+mapp[v][k](最近点v到k的距离）</span><br><span class="line">					</span><br><span class="line">					</span><br><span class="line">	</span><br><span class="line">			经过n次更新后，每个点到原点的最短距离就都保存在了dis数组中 </span><br><span class="line">						</span><br><span class="line">					</span><br><span class="line">					 </span><br><span class="line">ps:建议学习算法的时候，想几个样例，用脑子运行代码，或者用手写，熟悉过程和变量的用法，这样就是自己的东西，不用抄代码了。 </span><br><span class="line">					 				</span><br><span class="line">样例，可以自己画出图，在纸上按步骤写，然后和本地运行对比，				 </span><br><span class="line">/*</span><br><span class="line">6 9</span><br><span class="line">1 2 5</span><br><span class="line">2 3 4</span><br><span class="line">3 5 7</span><br><span class="line">4 5 7</span><br><span class="line">1 5 4</span><br><span class="line">1 3 5</span><br><span class="line">4 6 8</span><br><span class="line">5 6 2</span><br><span class="line">1 4 9 </span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-  
-<section class="post" itemscope="" itemprop="blogitem">
-  
-    <a href="/gtuif.github.io/2018/12/12/我的ACM回忆录/我的ACM回忆录/" title="我的ACM回忆录" itemprop="url">
-  
-    <h1 itemprop="name">我的ACM回忆录</h1>
-    
-     
-           <p itemprop="description">原文链接：https://blog.csdn.net/gtuif/article/details/84869637正文：
-写于2018.12.7 9.37分  web课
-2018.12.10 9.20 web实验
-退役了，有许多话想说，但是又不知道说些什么，毕竟作为打了两年的人，</p>
         
-    
-    <time datetime="2018-12-12T10:57:53.000Z" itemprop="datePublished">2018-12-12</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope="" itemprop="blogitem">
-  
-    <a href="/gtuif.github.io/2018/12/11/Begin/Begin/" title="Begin" itemprop="url">
-  
-    <h1 itemprop="name">Begin</h1>
-    
-     
-           <p itemprop="description">纪念 2018.12.11 21.56～～历经千辛万苦，小白博客搭建成功啦，欢迎大家访问，不定期更新。。。</p>
         
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/gtuif.github.io/tags/ACM算法/">ACM算法</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
     
-    <time datetime="2018-12-11T13:53:31.000Z" itemprop="datePublished">2018-12-11</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope="" itemprop="blogitem">
-  
-    <a href="/gtuif.github.io/2018/12/11/hello-world/" title="Hello World" itemprop="url">
-  
-    <h1 itemprop="name">Hello World</h1>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the </p>
+      <a href="/gtuif.github.io/2018/12/12/我的ACM回忆录/我的ACM回忆录/" title="我的ACM回忆录" itemprop="url">我的ACM回忆录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/gtuif.github.io/about" title="" target="_blank" itemprop="author"></a>
+		
+  </p><p class="article-time">
+    <time datetime="2018-12-12T10:57:53.000Z" itemprop="datePublished"> Published 2018-12-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
         
+        <p>原文链接：<a href="https://blog.csdn.net/gtuif/article/details/84869637" target="_blank" rel="noopener">https://blog.csdn.net/gtuif/article/details/84869637</a><br>正文：</p>
+<p>写于2018.12.7 9.37分  web课</p>
+<p>2018.12.10 9.20 web实验</p>
+<p>退役了，有许多话想说，但是又不知道说些什么，毕竟作为打了两年的人，都是铁牌，也没啥好说的，电子竞技，菜是原罪</p>
+<p>或许最后一次更新这个博客了吧 wwwwww</p>
+<p>2018.11.25日晚</p>
+<p>   伴随着焦作站的结束，我知道我的ACM JB生涯也彻底结束了，也没什么感觉，没想到生涯最后一次参加区域赛是当志愿者哈哈，有遗憾，不后悔，遗憾的是青岛站没有坚持自己的思路，明明想出了正解却因为一点小毛病把机子让给了队友，导致签到题写了40分钟，一堆if else让我头皮发麻，虽然我感觉我们队最后也开不出来那几道铜牌题，但没到最后谁敢说结果呢，更遗憾的是秦皇岛那道n = 1,输出-1，活活把我们卡到最后，真的很难受，那也是我最接近铜牌的一次，坐火车回来的路上我心态就崩了，之后更是直接佛系训练了，这也注定了我会打铁退役了吧。</p>
+<p>   每次去比赛都说自己是旅游队，可每次还是想拼尽全力去拿个牌子，但总会遇到这样或那样的坑，看着自己学弟莽一发最小生成树就拿了银牌更是让我怀疑人生，或许这就是命吧。。。。。</p>
+<p>   其实往过去想想，也没想到自己能打区域赛，从大一刚开始接触这玩意,成绩也是中流偏下，前几批招新都没进，要不是校赛凭运气拿了个奖，可能就直接不打去进院篮球队了，毕竟那时候更喜欢打篮球啊（这也可能是我为啥单身到现在的一个重要转折吧QAQ),进了协会成绩依旧是那样十几名的样子，省赛能不能打都是问题，反正每次就这样在危险的边缘试探，后来慢慢上心了，队伍成绩也慢慢变好了，一个队友因为失恋直接退协会了，当时极力挽留也没留住，后来组了个新队友，队伍成绩有时也能前三，没想到省赛选拔赛第二场我因为题目难度太大直接心态炸了，想想那时候的自己其实挺傻逼的，导致队伍8个名额我们都没有进，选拔赛结束后我想着就这样退了算了，反正自己也是垃圾，但想想另外两个队友因为我省赛不能去心里挺愧疚的，就壮着胆子找教练去要名额了，教练也同意了，最后省赛算是打出正常水平了吧，银牌前几名，那时候可能才产生想要打区域赛的渴望吧，省赛结束后教练让不退役的填表，那时候有点膨胀吧，就填了，另外也是因为ACMJB成了生活中的一部分吧，不打了总感觉生活中缺了点啥，于是乎大学的第二个暑假又留在了学校，不仅自己训练，也要负责给学弟学妹讲课，出题啥的，期间还出了好几次锅（再次向学弟学妹道歉），那个暑假不仅要备课出题，还要承受这多校的折磨，个人感觉挺累的，不过挺充实的（毕竟还有另外11个苦逼单身狗和我一样）。</p>
+<p>   区域赛真的是让我怀疑人生，不过最大的原因还是自己菜，菜是原罪哈哈哈哈，以后闲着的话还是会刷刷题嘻嘻</p>
+<p>   最后还是想说，挺感谢ACMJB的，让我的大学生活没有虚度，还认识了这几个一起努力的朋友，学到了很多，也扩展了眼界，如果让我再次面临去篮球队还是进协会，我还是会选择进协会。。。</p>
+<p>   有遗憾，不后悔。就这样，再见。。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/gtuif.github.io/tags/我的青春/">我的青春</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
     
-    <time datetime="2018-12-11T11:45:19.070Z" itemprop="datePublished">2018-12-11</time>
-  </a>
-</section>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/gtuif.github.io/2018/12/11/Begin/Begin/" title="Begin" itemprop="url">Begin</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/gtuif.github.io/about" title="" target="_blank" itemprop="author"></a>
+		
+  </p><p class="article-time">
+    <time datetime="2018-12-11T13:53:31.000Z" itemprop="datePublished"> Published 2018-12-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>纪念 2018.12.11 21.56<br>～～历经千辛万苦，小白博客搭建成功啦，欢迎大家访问，不定期更新。。。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/gtuif.github.io/2018/12/11/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/gtuif.github.io/about" title="" target="_blank" itemprop="author"></a>
+		
+  </p><p class="article-time">
+    <time datetime="2018-12-11T11:45:19.070Z" itemprop="datePublished"> Published 2018-12-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
 
 
 
